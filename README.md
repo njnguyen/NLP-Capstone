@@ -17,6 +17,15 @@ Next, use conda/pip to install the version of PyTorch that is compatible with yo
 
 Finally, in the main folder of the repository, run the command `pip install -r requirements.txt` to install the required packages.
 
+## Get Dataset
+To download the training dataset for each language, the usage is: 
+
+`./download_oscar.sh path_to_conda_folder environment_name language_code huggingface_access_token output_name`
+
+For example, if you want to download the OSCAR dataset for Telugu, your miniconda folder is at the path `~/username/miniconda3`, the environment is named `txlm`, your Hugging Face access tokens is `abc`, and you want to name your the output file to be `te_oscar.txt`, the command is:
+
+`./download_oscar.sh ~/username/miniconda3 txlm te abc te_oscar.txt`.
+
 ## Running Experiments
 
 ### LAPT
