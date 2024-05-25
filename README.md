@@ -17,6 +17,7 @@ Next, use conda/pip to install the version of PyTorch that is compatible with yo
 
 Finally, in the main folder of the repository, run the command `pip install -r requirements.txt` to install the required packages.
 
+# Monolingual experiments
 ## Get Dataset
 To download the training dataset for each language, the usage is: 
 
@@ -27,12 +28,29 @@ For example, if you want to download the OSCAR dataset for Telugu, your minicond
 `./download_oscar.sh ~/username/miniconda3 txlm te abc te_oscar.txt`.
 
 ## Preprocess Dataset
+### Clean Dataset
 To clean your dataset (combine the datasets when doing multilingual experiments), and you wish to use Cuda device 0, the usage is:
 
 `./tools/combine_and_clean.sh output_name 0 input_file_1 input_file2 ...`
 
 For example, if you only want to parse the dataset for Telugu, you want the output file name to be `te_output`, and you wish to use Cuda device 0, the command is:
 `./tools/combine_and_clean.sh te_output 0 te_oscar.txt`
+
+### Split
+Due to the limited computational resources, we split the dataset into 10 shards. The command is:
+
+`./scripts/make_shards.sh te_output_combined_cleaned.txt shards 10`
+
+### Train, Dev, Test set
+To get the training, development, and test set, the usage is:
+`python train_test_split.py input_dataset_file train_set_portion dev_set_portion`
+
+For example, if your input dataset file is named as `input.txt`, and you want to split this dataset into 0.7, 0.2, 0.1 for training, development, and test set respectively, the command is:
+
+`python train_test_split.py input.txt 0.7 0.2`
+
+### Dataset repository
+When you check each configs file, there are some paths to the training dataset and development dataset, you can keep or change those paths. If you choose to keep those paths, you need to create those directories manually and put the dataset file into those directories. 
 
 ## Running Experiments
 
