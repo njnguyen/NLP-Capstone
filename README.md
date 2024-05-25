@@ -26,6 +26,14 @@ For example, if you want to download the OSCAR dataset for Telugu, your minicond
 
 `./download_oscar.sh ~/username/miniconda3 txlm te abc te_oscar.txt`.
 
+## Preprocess Dataset
+To clean your dataset (combine the datasets when doing multilingual experiments), and you wish to use Cuda device 0, the usage is:
+
+`./tools/combine_and_clean.sh output_name 0 input_file_1 input_file2 ...`
+
+For example, if you only want to parse the dataset for Telugu, you want the output file name to be `te_output`, and you wish to use Cuda device 0, the command is:
+`./tools/combine_and_clean.sh te_output 0 te_oscar.txt`
+
 ## Running Experiments
 
 ### LAPT
