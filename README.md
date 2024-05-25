@@ -51,7 +51,7 @@ For example, if your input dataset file is named as `input.txt`, and you want to
 `python train_test_split.py input.txt 0.7 0.2`
 
 ### Dataset repository
-When you check each configs file, there are some paths to the training dataset and development dataset, you can keep or change those paths. If you choose to keep those paths, you need to create those directories manually and put the dataset file into those directories. 
+When you check each configs file, there are some paths to the training dataset and development dataset. You can keep or change those paths. If you choose to keep those paths, you need to create those directories manually and put the dataset file into those directories. 
 
 ## Tokenizer and Embeddings
 ### Vocabulary
@@ -63,6 +63,7 @@ To get the vocabulary and tokenizer, assuming you want to get the vocabulary and
 To get the embeddings for each re-initialized embedding technique and focus, assuming you want to find the embeddings for Telugu, ran the command:
 
 `./scripts/initialize_embeddings.sh ~/username/miniconda3 txlm te_spm_32k.model te`
+You can take a look at `initialized_embeddings.sh` for more details. If you don't want to initialize the embeddings of some re-initialized embedding techniques, you can modify this file by commenting out the related code lines.  
 
 ## Running Experiments
 
