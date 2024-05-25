@@ -65,7 +65,28 @@ To get the embeddings for each re-initialized embedding technique and focus, ass
 
 `./scripts/initialize_embeddings.sh ~/username/miniconda3 txlm te_spm_32k.model te`
 
-You can take a look at `initialized_embeddings.sh` for more details. If you don't want to initialize the embeddings of some re-initialized embedding techniques, you can modify this file by commenting out the related code lines.  
+You can take a look at `initialized_embeddings.sh` for more details. If you don't want to initialize the embeddings of some re-initialized embedding techniques, you can modify this file by commenting out the related code lines.
+
+#### Re-initializing Embeddings
+The Python script for re-initializing embeddings can be used as follows:
+
+```
+python src/reinitialize_embeddings.py \
+    --old_model_path path_to_base_model \
+    --new_vocab_file path_to_new_vocab \
+    --embedding_output_path path_to_new_embedding_matrix \
+    [--old_tokenizer_path path_to_base_tokenizer] \
+    [--reinit_by_script] \
+    [--reinit_by_identity] \
+    [--reinit_by_position] \
+    [--focus_reinit] \
+    [--focus_train_path path_to_focus_training_corpus]
+```
+
+`old_model_path` is the name of the base model for which you are re-initializing the vocabulary. For instance, XLM-R: `xlm-roberta-base`. `new_vocab_file` is the sentencepiece model for the new (specialized) vocabulary/tokenizer. `embedding_output_path` is the path at which to save the resulting embedding block (as a PyTorch data file). `old_tokenizer_path` is the optional path to the base (non-specialized) vocabulary/tokenizer, if it is at a different path than the base model (for `xlm-roberta-base`, the model and tokenizer path are the same). The `reinit_by_<method>` arguments are boolean flags for which technique to use for re-initializing embeddings; see our paper for details of these methods. `reinit_by_position` requires that `reinit_by_script` is also true.
+
+Finally `focus_reinit` is the boolean flag to re-initialize embeddings by the [FOCUS method](https://arxiv.org/abs/2305.14481) (see paper for details). This method overrides all other re-initialization methods. It also requires a path to the training corpus for the FOCUS method, via the `focus_train_path` argument. The source code for FOCUS is **not included in this repository**. To use this method, place the [FOCUS Python source code](https://github.com/konstantinjdobler/focus) in a folder called `src/focus`. The FOCUS code requires additional dependencies: `entmax, fasttext, requests, loguru`.
+
 
 ## Running Experiments
 
@@ -86,23 +107,3 @@ Similarly, the usage for fine-tuning and evaluating a model on a downstream task
 `./scripts/eval_finetune.sh path_to_conda_folder environment_name cuda_devices config_name`
 
 The choice of downstream task and hyperparameters is specified in the configuration file. Please see the `configs` folder for examples.
-
-### Re-initializing Embeddings
-The Python script for re-initializing embeddings can be used as follows:
-
-```
-python src/reinitialize_embeddings.py \
-    --old_model_path path_to_base_model \
-    --new_vocab_file path_to_new_vocab \
-    --embedding_output_path path_to_new_embedding_matrix \
-    [--old_tokenizer_path path_to_base_tokenizer] \
-    [--reinit_by_script] \
-    [--reinit_by_identity] \
-    [--reinit_by_position] \
-    [--focus_reinit] \
-    [--focus_train_path path_to_focus_training_corpus]
-```
-
-`old_model_path` is the name of the base model for which you are re-initializing the vocabulary. For instance, XLM-R: `xlm-roberta-base`. `new_vocab_file` is the sentencepiece model for the new (specialized) vocabulary/tokenizer. `embedding_output_path` is the path at which to save the resulting embedding block (as a PyTorch data file). `old_tokenizer_path` is the optional path to the base (non-specialized) vocabulary/tokenizer, if it is at a different path than the base model (for `xlm-roberta-base`, the model and tokenizer path are the same). The `reinit_by_<method>` arguments are boolean flags for which technique to use for re-initializing embeddings; see our paper for details of these methods. `reinit_by_position` requires that `reinit_by_script` is also true.
-
-Finally `focus_reinit` is the boolean flag to re-initialize embeddings by the [FOCUS method](https://arxiv.org/abs/2305.14481) (see paper for details). This method overrides all other re-initialization methods. It also requires a path to the training corpus for the FOCUS method, via the `focus_train_path` argument. The source code for FOCUS is **not included in this repository**. To use this method, place the [FOCUS Python source code](https://github.com/konstantinjdobler/focus) in a folder called `src/focus`. The FOCUS code requires additional dependencies: `entmax, fasttext, requests, loguru`.
