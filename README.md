@@ -43,6 +43,7 @@ Due to the limited computational resources, we split the dataset into 10 shards.
 
 ### Train, Dev, Test set
 To get the training, development, and test set, the usage is:
+
 `python train_test_split.py input_dataset_file train_set_portion dev_set_portion`
 
 For example, if your input dataset file is named as `input.txt`, and you want to split this dataset into 0.7, 0.2, 0.1 for training, development, and test set respectively, the command is:
@@ -51,6 +52,17 @@ For example, if your input dataset file is named as `input.txt`, and you want to
 
 ### Dataset repository
 When you check each configs file, there are some paths to the training dataset and development dataset, you can keep or change those paths. If you choose to keep those paths, you need to create those directories manually and put the dataset file into those directories. 
+
+## Tokenizer and Embeddings
+### Vocabulary
+To get the vocabulary and tokenizer, assuming you want to get the vocabulary and tokenizer for Telugu, the usage is:
+
+`./scripts/train_vocab.sh ~/username/miniconda3 txlm configs/te_vocab.yml `
+
+### Embeddings
+To get the embeddings for each re-initialized embedding technique and focus, assuming you want to find the embeddings for Telugu, ran the command:
+
+`./scripts/initialize_embeddings.sh ~/username/miniconda3 txlm te_spm_32k.model te`
 
 ## Running Experiments
 
