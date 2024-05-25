@@ -34,6 +34,7 @@ To clean your dataset (combine the datasets when doing multilingual experiments)
 `./tools/combine_and_clean.sh output_name 0 input_file_1 input_file2 ...`
 
 For example, if you only want to parse the dataset for Telugu, you want the output file name to be `te_output`, and you wish to use Cuda device 0, the command is:
+
 `./tools/combine_and_clean.sh te_output 0 te_oscar.txt`
 
 ### Split
@@ -63,6 +64,7 @@ To get the vocabulary and tokenizer, assuming you want to get the vocabulary and
 To get the embeddings for each re-initialized embedding technique and focus, assuming you want to find the embeddings for Telugu, ran the command:
 
 `./scripts/initialize_embeddings.sh ~/username/miniconda3 txlm te_spm_32k.model te`
+
 You can take a look at `initialized_embeddings.sh` for more details. If you don't want to initialize the embeddings of some re-initialized embedding techniques, you can modify this file by commenting out the related code lines.  
 
 ## Running Experiments
