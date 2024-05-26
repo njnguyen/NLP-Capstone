@@ -137,3 +137,5 @@ To get the tokenizer, you need to change the name `uralic_mrl_vocab_train_alpha0
 To get the embeddings for each re-initialized embedding technique and focus, run the command:
 
 `./scripts/initialize_embeddings.sh ~/username/miniconda3 txlm multi_mrl_spm_32k.model multi_mrl`
+
+Still, you might need to pass in the training dataset as an argument to get embeddings for the FOCUS method.
