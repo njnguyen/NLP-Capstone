@@ -54,14 +54,14 @@ For example, if your input dataset file is named as `input.txt`, and you want to
 ### Dataset repository
 When you check each configs file, there are some paths to the training dataset and development dataset. You can keep or change those paths. If you choose to keep those paths, you need to create those directories manually and put the dataset file into those directories. 
 
-## Tokenizer and Embeddings
+## Get Tokenizer and Embeddings
 ### Vocabulary
 To get the vocabulary and tokenizer, assuming you want to get the vocabulary and tokenizer for Telugu, the usage is:
 
 `./scripts/train_vocab.sh ~/username/miniconda3 txlm configs/te_vocab.yml `
 
 ### Embeddings
-To get the embeddings for each re-initialized embedding technique and focus, assuming you want to find the embeddings for Telugu, ran the command:
+To get the embeddings for each re-initialized embedding technique and focus, assuming you want to find the embeddings for Telugu, run the command:
 
 `./scripts/initialize_embeddings.sh ~/username/miniconda3 txlm te_spm_32k.model te`
 
@@ -111,3 +111,29 @@ Then, you can do fine-tuning and evaluating. Similarly, the usage for fine-tunin
 `./scripts/eval_finetune.sh path_to_conda_folder environment_name cuda_devices config_name`
 
 The choice of downstream tasks and hyperparameters is specified in the configuration file. Please see the `configs` folder for examples.
+
+# Multilingual Experiments
+## Get Train and Development Dataset
+Create a data file. `data/multilingual/multi_mrl_train_alpha02_20mil.txt`, first. Then, run the command:
+
+`./scripts/make_multilingual_set.sh ~/username/miniconda3 txlm multi_mrl_train_set.yml`
+
+Next, create a data file, `data/multilingual/multi_mrl_dev_alpha02.txt`. Then, run the command:
+
+`./scripts/make_multilingual_set.sh ~/username/miniconda3 txlm multi_mrl_dev_set.yml`
+
+## Get Tokenizer and Embeddings
+Make sure to check out each configs file to do any appropriate modification. 
+### Vocabulary
+To get the vocabulary, the command is:
+
+`./scripts/make_multilingual_set.sh ~/username/miniconda3 txlm multi_mrl_vocab.yml`
+
+To get the tokenizer, you need to change the name `uralic_mrl_vocab_train_alpha02_5mil.txt` to `multi_mrl_vocab_train_alpha02_5mil.txt`, and then run the command:
+
+`./scripts/train_vocab.sh ~/username/miniconda3 txlm configs/multi_mrl_vocab.yml`
+
+### Embeddings
+To get the embeddings for each re-initialized embedding technique and focus, run the command:
+
+`./scripts/initialize_embeddings.sh ~/username/miniconda3 txlm multi_mrl_spm_32k.model multi_mrl`
