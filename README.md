@@ -139,3 +139,6 @@ To get the embeddings for each re-initialized embedding technique and focus, run
 `./scripts/initialize_embeddings.sh ~/username/miniconda3 txlm multi_mrl_spm_32k.model multi_mrl`
 
 Still, you might need to pass in the training dataset as an argument to get embeddings for the FOCUS method.
+
+## Training and Fine-tuning
+The rest is similar to the monolingual part. You just need to run similar training and fine-tuning command to run the experiments.
