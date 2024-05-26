@@ -100,8 +100,14 @@ For instance, if your miniconda folder is at the path `~/username/miniconda3`, t
 **NOTE**: We use the term Language-Adaptive Pre-Training (LAPT) in the associated publication and readme. However, in configuration file names this is referred to as CPT (Continued Pre-Training).
 
 ### Fine-tuning and Evaluation
-Similarly, the usage for fine-tuning and evaluating a model on a downstream task is:
+You must first obtain the WikiAnn benchmark to conduct the NER F1 score evaluation. Please request access to this benchmark from the author and download the .bio file for the language for which you are training the model.
+
+Place all the .bio files into a directory. Create directory `data/ner-mono`. Assume you place all the .bio files into a directory called `temp`, the usage is:
+
+`python ~/tools/preprocess_wikiann_data.py --input_folder ~/temp --output_folder ~/data/ner-mono --dataset_name language_code`
+
+Then, you can do fine-tuning and evaluating. Similarly, the usage for fine-tuning and evaluating a model on a downstream task is:
 
 `./scripts/eval_finetune.sh path_to_conda_folder environment_name cuda_devices config_name`
 
-The choice of downstream task and hyperparameters is specified in the configuration file. Please see the `configs` folder for examples.
+The choice of downstream tasks and hyperparameters is specified in the configuration file. Please see the `configs` folder for examples.
